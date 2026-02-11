@@ -37,6 +37,12 @@ public class TouristController {
         }
     }
 
+
+
+    //TODO TIlføj @GetMapping("/{name}/tags")
+
+
+
     @PostMapping("/add")
     public ResponseEntity<TouristAttraction> addTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
         if (touristAttraction != null) {
@@ -46,6 +52,15 @@ public class TouristController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //TODO "@PostMapping(/save)"
+
+
+
+
+    //TODO @GetMapping("/{name}/edit")
+
+
 
     @PostMapping("/update")
     public ResponseEntity<TouristAttraction> updateTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
@@ -61,10 +76,6 @@ public class TouristController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/seeAll")
-    public ResponseEntity<ArrayList<TouristAttraction>> seeAllTest() {
-        return new  ResponseEntity<>(service.getTouristAttractions(), HttpStatus.ACCEPTED);
-    }
 
 
     @PostMapping("/delete/{name}")
@@ -79,4 +90,17 @@ public class TouristController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+
+
+
+    //kan måske undlades??
+
+    @PostMapping("/seeAll")
+    public ResponseEntity<ArrayList<TouristAttraction>> seeAllTest() {
+        return new  ResponseEntity<>(service.getTouristAttractions(), HttpStatus.ACCEPTED);
+    }
+
+
 }
