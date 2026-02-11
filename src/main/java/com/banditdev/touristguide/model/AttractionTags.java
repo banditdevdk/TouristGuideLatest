@@ -1,24 +1,34 @@
 package com.banditdev.touristguide.model;
 
 public enum AttractionTags {
-    GRATIS,
-    KUNST,
-    NATUR,
-    BØRNEVENLIG,
-    MUSEUM,
-    HISTORISK,
-    KONGELIG,
-    ARKITEKTUR,
-    UDSIGT,
-    HAVN,
-    KULTUR,
-    GASTRONOMI,
-    NATTELIV,
-    FAMILIEVENLIG,
-    SEVÆRDIGHED,
-    GUIDET_TUR,
-    FOTOVENLIG,
-    CENTRUM,
-    SHOPPING,
-    UNDERHOLDNING
+    GRATIS("Gratis"),
+    KUNST("Kunst"),
+    NATUR("Natur"),
+    BØRNEVENLIG("Børnevenligt"),
+    MUSEUM("Museum"),
+    HISTORISK("Historisk"),
+    KONGELIG("Kongelig"),
+    ARKITEKTUR("Arkitektur"),
+    UDSIGT("Udsigt"),
+    HAVN("Havn"),
+    KULTUR("Kultur"),
+    GASTRONOMI("Gastronomi"),
+    NATTELIV("Natteliv"),
+    FAMILIEVENLIG("Familievenlig"),
+    SEVÆRDIGHED("Seværdighed"),
+    GUIDET_TUR("Guidet-tur"),
+    FOTOVENLIG("Fotovenlig"),
+    CENTRUM("Centrum"),
+    SHOPPING("Shopping"),
+    UNDERHOLDNING("Underholdning");
+
+    private String description;
+
+    AttractionTags(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

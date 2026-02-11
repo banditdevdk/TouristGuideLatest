@@ -9,16 +9,19 @@
     <h1 th:text="${attraction.name} + ' Tags'"> </h1>
     <table>
         <thead>
+        <tr th:if="${tags.isEmpty()}"> There are no tags for this attraction yet </tr>
+        <tr th:if="${!tags.isEmpty()}">
+            <th>Tag</th>
+        </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>
-                <a th:href="@{/attractionList}" class="button">Go back</a>
-            </td>
+        <tr th:each="tag : ${attraction.getAttractionTags()}">
+            <td th:text="${tag}"></td>
         </tr>
         </tbody>
     </table>
 
+    <button type="button" th:href="@{/attractionList}">Go back</button>
 
 </body>
 </html>
