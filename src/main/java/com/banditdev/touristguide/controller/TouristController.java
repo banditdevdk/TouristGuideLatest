@@ -40,7 +40,16 @@ public class TouristController {
 
 
 
-    //TODO TIlføj @GetMapping("/{name}/tags")
+    @GetMapping("{name}/tags")
+    public String viewTags(@PathVariable String name, Model model) {
+        TouristAttraction t = service.findTouristAttractionByName(name);
+        model.addAttribute("attraction", t);
+
+        //hvilke tags?? herunder tilføj
+        model.addAttribute("tags"/*, getTag()?*/);
+
+        return "tags";
+    }
 
 
 

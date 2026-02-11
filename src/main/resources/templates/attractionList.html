@@ -16,12 +16,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="attraction : ${attractions}">
-        <td th:text="${attraction.name}"></td>
-        <td th:text="${attraction.description}"></td>
+        <tr th:each="attraction : ${attractions}">
+            <td th:text="${attraction.name}"></td>
+            <td th:text="${attraction.description}"></td>
+            <td>
+            <a th:href="@{'/attractions/' + ${attraction.name} + '/tags'}" class="button">Tags</a>
+        </td>
     </tr>
     </tbody>
 </table>
+
+    <button type="button">Add Attraction</button>
 
 </body>
 </html>
