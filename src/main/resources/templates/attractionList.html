@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/main.css}" rel="stylesheet">
+    <title>All attractions</title>
+</head>
+<body>
+<h1> Attractions </h1>
+<table>
+    <thead>
+    <tr th:if="${attractions.isEmpty()}"> There are no attractions yet </tr>
+
+    <tr th:if="${!attractions.isEmpty()}">
+        <th>Name</th> <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="attraction : ${attractions}">
+        <td th:text="${attraction.name}"></td>
+        <td th:text="${attraction.description}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

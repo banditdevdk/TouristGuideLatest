@@ -5,6 +5,7 @@ import com.banditdev.touristguide.service.TouristService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,11 +19,11 @@ public class TouristController {
         this.service = service;
     }
 
-
     @GetMapping()
-    public ResponseEntity<ArrayList<TouristAttraction>> getTouristAttractions() {
+    public String getTouristAttractions(Model model) {
         ArrayList<TouristAttraction> touristAttractions = service.getTouristAttractions();
-        return new ResponseEntity<>(touristAttractions, HttpStatus.OK);
+        model.addAttribute("attractions", touristAttractions);
+        return "attractionList";
     }
 
 
