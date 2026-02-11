@@ -20,7 +20,9 @@
             <td th:text="${attraction.name}"></td>
             <td th:text="${attraction.description}"></td>
             <td>
-            <a th:href="@{'/attractions/' + ${attraction.name} + '/tags'}" class="button">Tags</a>
+            <a th:href="@{'/attractions/' + ${attraction.name} + '/tags'}">
+            <button>Tags</button>
+            </a>
         </td>
     </tr>
     </tbody>
