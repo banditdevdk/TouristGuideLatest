@@ -22,7 +22,7 @@ public enum AttractionTags {
     SHOPPING("Shopping"),
     UNDERHOLDNING("Underholdning");
 
-    private String description;
+    private final String description;
 
     AttractionTags(String description) {
         this.description = description;
