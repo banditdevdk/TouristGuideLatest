@@ -7,7 +7,7 @@ import java.util.List;
 public class TouristAttraction {
     private String name;
     private String description;
-    private String cityName;
+    private final String cityName;
     private List<AttractionTags> attractionTags;
 
 

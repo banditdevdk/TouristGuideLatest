@@ -49,8 +49,6 @@ public class TouristController {
         return "tags";
     }
 
-
-
     @PostMapping("/add")
     public ResponseEntity<TouristAttraction> addTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
         if (touristAttraction != null) {
@@ -63,12 +61,7 @@ public class TouristController {
 
     //TODO "@PostMapping(/save)"
 
-
-
-
     //TODO @GetMapping("/{name}/edit")
-
-
 
     @PostMapping("/update")
     public ResponseEntity<TouristAttraction> updateTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
@@ -84,12 +77,9 @@ public class TouristController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
-
     @PostMapping("/delete/{name}")
     public ResponseEntity<TouristAttraction> deleteAttraction(@PathVariable String name) {
 
-        //xx
         TouristAttraction t = service.findTouristAttractionByName(name);
 
         if (t != null) {
@@ -99,12 +89,6 @@ public class TouristController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-
-
-
-
-    //kan måske undlades??
 
     @PostMapping("/seeAll")
     public ResponseEntity<ArrayList<TouristAttraction>> seeAllTest() {
