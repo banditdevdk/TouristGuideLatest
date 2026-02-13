@@ -89,6 +89,7 @@ public class TouristController {
     @PostMapping("/delete/{name}")
     public ResponseEntity<TouristAttraction> deleteAttraction(@PathVariable String name) {
 
+        //xx
         TouristAttraction t = service.findTouristAttractionByName(name);
 
         if (t != null) {
