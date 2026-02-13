@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         <tr th:each="tag : ${attraction.getAttractionTags()}">
-            <td th:text="${tag}"></td>
+            <td th:text="${tag.getDescription()}"></td>
         </tr>
         </tbody>
     </table>
