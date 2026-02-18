@@ -1,6 +1,7 @@
 package com.banditdev.touristguide.repository;
 
 import com.banditdev.touristguide.model.AttractionTags;
+import com.banditdev.touristguide.model.Cities;
 import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 
@@ -87,4 +88,24 @@ public class TouristRepository {
         }
         return null;
     }
+
+    public List<String> getCities() {
+        List<String> results = new ArrayList<>();
+
+        for (Cities city : Cities.values()) {
+            results.add(city.getCityDescription());
+        }
+        return results;
+    }
+
+    public List<String> getTags() {
+        List<String> results = new ArrayList<>();
+
+        for (AttractionTags tag : AttractionTags.values()) {
+            results.add(tag.getDescription());
+        }
+        return results;
+    }
+
+
 }
