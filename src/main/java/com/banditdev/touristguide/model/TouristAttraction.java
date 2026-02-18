@@ -7,10 +7,11 @@ import java.util.List;
 public class TouristAttraction {
     private String name;
     private String description;
-    private final Cities cityName;
+    private Cities cityName;
     private List<AttractionTags> attractionTags;
 
 
+    public TouristAttraction() {}
     public TouristAttraction(String name, String description, Cities cityName) {
         this.name = name;
         this.description = description;

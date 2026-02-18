@@ -1,5 +1,6 @@
 package com.banditdev.touristguide.controller;
 
+import com.banditdev.touristguide.model.Cities;
 import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.service.TouristService;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,6 @@ public class TouristController {
     }
 
 
-
     @GetMapping("{name}/tags")
     public String viewTags(@PathVariable String name, Model model) {
         TouristAttraction t = service.findTouristAttractionByName(name);
@@ -49,23 +49,38 @@ public class TouristController {
         return "tags";
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<TouristAttraction> addTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
-        if (touristAttraction != null) {
-            service.getTouristAttractions().add(touristAttraction);
-            return new ResponseEntity<>(touristAttraction, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+//    @PostMapping("/add")
+//    public ResponseEntity<TouristAttraction> addTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
+//        if (touristAttraction != null) {
+//            service.getTouristAttractions().add(touristAttraction);
+//            return new ResponseEntity<>(touristAttraction, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
+    @GetMapping("/add")
+    public String addNewTouristAttraction(Model model) {
+        model.addAttribute("touristAttraction", new TouristAttraction());
+
+        model.addAttribute("cities", service.getCities());
+
+        return "addAttraction";
     }
 
-    //TODO "@PostMapping(/save)"
+    @PostMapping("/save")
+    public String saveNewTouristAttraction(@ModelAttribute TouristAttraction touristAttraction, Model model) {
+        model.addAttribute("touristAttraction", touristAttraction);
+
+        service.addTouristAttraction(touristAttraction);
+        return "attractionList";
+    }
 
     //TODO @GetMapping("/{name}/edit")
     
     @PostMapping("/update")
     public ResponseEntity<TouristAttraction> updateTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
-
+    //logik skal muligvis ligge i repository? og skal return en string for at komme til en thymeleaf template
         for (int i = 0; i < service.getTouristAttractions().size(); i++) {
             TouristAttraction ta = service.getTouristAttractions().get(i);
 
@@ -77,23 +92,15 @@ public class TouristController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/delete/{name}")
-    public ResponseEntity<TouristAttraction> deleteAttraction(@PathVariable String name) {
+    @PostMapping("/{name}/delete")
+    public String deleteAttraction(@PathVariable String name) {
+        service.deleteTouristAttraction(name);
 
-        TouristAttraction t = service.findTouristAttractionByName(name);
-
-        if (t != null) {
-            service.getTouristAttractions().remove(t);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return "attractionList";
     }
 
-    @PostMapping("/seeAll")
-    public ResponseEntity<ArrayList<TouristAttraction>> seeAllTest() {
-        return new  ResponseEntity<>(service.getTouristAttractions(), HttpStatus.ACCEPTED);
-    }
-
-
+    // @PostMapping("/seeAll")
+    // public ResponseEntity<ArrayList<TouristAttraction>> seeAllTest() {
+    //     return new  ResponseEntity<>(service.getTouristAttractions(), HttpStatus.ACCEPTED);
+    // }
 }

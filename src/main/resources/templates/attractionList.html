@@ -19,16 +19,26 @@
         <tr th:each="attraction : ${attractions}">
             <td th:text="${attraction.name}"></td>
             <td th:text="${attraction.description}"></td>
-            <td>
-            <a th:href="@{'/attractions/' + ${attraction.name} + '/tags'}">
+            <td th:text="${attraction.getCityNameString()}"></td>
+
+            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/update'}">
+                <button>Update</button>
+            </a></td>
+
+            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/delete'}">
+                <button>Delete</button>
+            </a></td>
+
+            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/tags'}">
             <button>Tags</button>
-            </a>
-        </td>
+            </a></td>
     </tr>
     </tbody>
 </table>
 
-    <button type="button">Add Attraction</button>
+    <a th:href="@{'/attractions/add'}">
+    <button>Add attraction</button>
+    </a>
 
 </body>
 </html>

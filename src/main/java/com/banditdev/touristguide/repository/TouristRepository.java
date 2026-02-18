@@ -75,8 +75,14 @@ public class TouristRepository {
     }
 
 
-    public void addTouristAttraction(TouristAttraction touristAttraction) {
+    public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {
         touristAttractions.add(touristAttraction);
+        return touristAttraction;
+    }
+
+    public void deleteTouristAttraction(String name) {
+        touristAttractions.removeIf(t ->
+                t.getName().equalsIgnoreCase(name));
     }
 
 
