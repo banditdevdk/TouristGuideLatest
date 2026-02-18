@@ -19,12 +19,12 @@ public class TouristRepository {
 
     public void populateTouristAttractions() {
 
-        TouristAttraction t1 = new TouristAttraction("Den Lille Havfrue", "Verdenskendt statue inspireret af H.C. Andersens eventyr, beliggende ved Københavns havn.", "København");
-        TouristAttraction t2 = new TouristAttraction("Nyhavn", "Farverig havnefront med historiske bygninger, restauranter og caféer.", "København");
-        TouristAttraction t3 = new TouristAttraction("Rundetårn", "Historisk tårn med spiralrampe og udsigt over Københavns skyline.", "København");
-        TouristAttraction t4 = new TouristAttraction("Amalienborg", "De danske kongers vinterresidens og et centralt symbol på monarkiet.", "København");
-        TouristAttraction t5 = new TouristAttraction("Nationalmuseet", "Danmarks største kulturhistoriske museum med udstillinger fra hele verden.", "København");
-        TouristAttraction t6 = new TouristAttraction("Christiania", "Unikt fristadssamfund kendt for alternativ livsstil, kunst og kultur.", "København");
+        TouristAttraction t1 = new TouristAttraction("Den Lille Havfrue", "Verdenskendt statue inspireret af H.C. Andersens eventyr, beliggende ved Københavns havn.", Cities.KØBENHAVN);
+        TouristAttraction t2 = new TouristAttraction("Nyhavn", "Farverig havnefront med historiske bygninger, restauranter og caféer.", Cities.KØBENHAVN);
+        TouristAttraction t3 = new TouristAttraction("Rundetårn", "Historisk tårn med spiralrampe og udsigt over Københavns skyline.", Cities.KØBENHAVN);
+        TouristAttraction t4 = new TouristAttraction("Amalienborg", "De danske kongers vinterresidens og et centralt symbol på monarkiet.", Cities.KØBENHAVN);
+        TouristAttraction t5 = new TouristAttraction("Nationalmuseet", "Danmarks største kulturhistoriske museum med udstillinger fra hele verden.", Cities.KØBENHAVN);
+        TouristAttraction t6 = new TouristAttraction("Christiania", "Unikt fristadssamfund kendt for alternativ livsstil, kunst og kultur.", Cities.KØBENHAVN);
 
         // Tilføj til liste
         touristAttractions.add(t1);

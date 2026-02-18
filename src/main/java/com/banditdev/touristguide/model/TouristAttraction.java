@@ -7,11 +7,11 @@ import java.util.List;
 public class TouristAttraction {
     private String name;
     private String description;
-    private final String cityName;
+    private final Cities cityName;
     private List<AttractionTags> attractionTags;
 
 
-    public TouristAttraction(String name, String description, String cityName) {
+    public TouristAttraction(String name, String description, Cities cityName) {
         this.name = name;
         this.description = description;
         this.cityName = cityName;
@@ -20,6 +20,14 @@ public class TouristAttraction {
 
     public List<AttractionTags> getAttractionTags() {
         return attractionTags;
+    }
+
+    public Cities getCityName() {
+        return cityName;
+    }
+
+    public String getCityNameString() {
+        return cityName.getCityDescription();
     }
 
     public void setAttractionTags(List<AttractionTags> attractionTags) {
