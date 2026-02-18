@@ -52,6 +52,7 @@ public class TouristController {
         model.addAttribute("touristAttraction", new TouristAttraction());
 
         model.addAttribute("cities", Cities.values());
+        model.addAttribute("tags", service.getTags());
 
         return "addAttraction";
     }
