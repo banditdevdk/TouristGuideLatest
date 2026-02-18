@@ -8,7 +8,7 @@
 <body>
 <h1> Add new Attraction</h1>
 
-<form action="#" th:object="${touristAttraction}" th:action="@{/attactions/add}" th:method="post">
+<form action="#" th:object="${touristAttraction}" th:action="@{/attractions/save}" th:method="post">
     <label>Name</label>
         <input type="text" th:field="*{name}" />
     <br>
@@ -18,18 +18,26 @@
     <br>
 
 
+    <label for="cityName">City</label>
+    <select id="cityName" th:field="*{cityName}" required>
+        <option value="">Choose a city</option>
+        <option th:each="city: ${cities}"
+                th:value="${city.toUpperCase()}"
+                th:text="${city}">
+        </option>
+    </select>
+    <br>
+
+    <br>
+    <label>Attraction tag</label>
+    <div th:id="tag" th:each="tag: ${tags}">
+        <input type="checkbox" th:value="${tag}">
+        <label th:for="${tag}" th:text="${tag}"></label>
+    </div>
+
+    <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
 
 
-
-    <label th:for="*{cityName}">Choose a city</label>½
-            <select th:field="*{cityName}">
-                <option th:each="city : ${cities}"
-                th:text="${city.getCityDescription()}"
-                th:value="${city}">
-                </option>
-            </select>
-    
 </form>
-
 </body>
 </html>

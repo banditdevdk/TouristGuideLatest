@@ -95,6 +95,8 @@ public class TouristRepository {
         return null;
     }
 
+
+    //måske skal vi ændre det fra strings til ENUMS, så det passer til konstruktøren.
     public List<String> getCities() {
         List<String> results = new ArrayList<>();
 
