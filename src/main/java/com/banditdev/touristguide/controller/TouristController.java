@@ -27,7 +27,6 @@ public class TouristController {
         return "attractionList";
     }
 
-
     @GetMapping("{name}")
     public ResponseEntity<TouristAttraction> getTouristAttractionByName(@PathVariable String name) {
         TouristAttraction t = service.findTouristAttractionByName(name);
@@ -39,7 +38,6 @@ public class TouristController {
         }
     }
 
-
     @GetMapping("{name}/tags")
     public String viewTags(@PathVariable String name, Model model) {
         TouristAttraction t = service.findTouristAttractionByName(name);
@@ -49,21 +47,11 @@ public class TouristController {
         return "tags";
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<TouristAttraction> addTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
-//        if (touristAttraction != null) {
-//            service.getTouristAttractions().add(touristAttraction);
-//            return new ResponseEntity<>(touristAttraction, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-
     @GetMapping("/add")
     public String addNewTouristAttraction(Model model) {
         model.addAttribute("touristAttraction", new TouristAttraction());
 
-        model.addAttribute("cities", service.getCities());
+        model.addAttribute("cities", Cities.values());
 
         return "addAttraction";
     }
@@ -73,7 +61,7 @@ public class TouristController {
         model.addAttribute("touristAttraction", touristAttraction);
 
         service.addTouristAttraction(touristAttraction);
-        return "attractionList";
+        return "redirect:/attractions";
     }
 
     //TODO @GetMapping("/{name}/edit")
@@ -96,11 +84,7 @@ public class TouristController {
     public String deleteAttraction(@PathVariable String name) {
         service.deleteTouristAttraction(name);
 
-        return "attractionList";
+        return "redirect:/attractions";
     }
 
-    // @PostMapping("/seeAll")
-    // public ResponseEntity<ArrayList<TouristAttraction>> seeAllTest() {
-    //     return new  ResponseEntity<>(service.getTouristAttractions(), HttpStatus.ACCEPTED);
-    // }
 }

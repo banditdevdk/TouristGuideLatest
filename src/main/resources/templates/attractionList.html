@@ -25,9 +25,10 @@
                 <button>Update</button>
             </a></td>
 
-            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/delete'}">
-                <button>Delete</button>
-            </a></td>
+            <td> <form th:action="@{'/attractions/' + ${attraction.name} + '/delete'}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
 
             <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/tags'}">
             <button>Tags</button>

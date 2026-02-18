@@ -31,6 +31,10 @@ public class TouristAttraction {
         return cityName.getCityDescription();
     }
 
+    public void setCityName(Cities cityName) {
+        this.cityName = cityName;
+    }
+
     public void setAttractionTags(List<AttractionTags> attractionTags) {
         this.attractionTags = attractionTags;
     }
