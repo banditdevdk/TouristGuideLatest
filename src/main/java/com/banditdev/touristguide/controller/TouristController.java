@@ -62,7 +62,7 @@ public class TouristController {
     //TODO "@PostMapping(/save)"
 
     //TODO @GetMapping("/{name}/edit")
-
+    
     @PostMapping("/update")
     public ResponseEntity<TouristAttraction> updateTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
 
