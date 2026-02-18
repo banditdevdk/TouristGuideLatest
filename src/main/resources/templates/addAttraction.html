@@ -17,15 +17,14 @@
         <input type="text" th:field="*{description}"/>
     <br>
 
-
-    <label for="cityName">City</label>
-    <select id="cityName" th:field="*{cityName}" required>
-        <option value="">Choose a city</option>
-        <option th:each="city: ${cities}"
-                th:value="${city.toUpperCase()}"
-                th:text="${city}">
+    <label th:for="*{cityName}">Choose a city</label>
+    <select th:field="*{cityName}">
+        <option th:each="city : ${cities}"
+                th:text="${city}"
+                th:value="${city}">
         </option>
     </select>
+   
     <br>
 
     <br>
