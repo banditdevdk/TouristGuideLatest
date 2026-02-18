@@ -1,5 +1,6 @@
 package com.banditdev.touristguide.controller;
 
+import com.banditdev.touristguide.model.AttractionTags;
 import com.banditdev.touristguide.model.Cities;
 import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.service.TouristService;
@@ -47,12 +48,15 @@ public class TouristController {
         return "tags";
     }
 
+
+    //vi skal finde ud af om hvad der skser med Tags. Der er noget der ikke virker!
+
     @GetMapping("/add")
     public String addNewTouristAttraction(Model model) {
         model.addAttribute("touristAttraction", new TouristAttraction());
 
         model.addAttribute("cities", Cities.values());
-        model.addAttribute("tags", service.getTags());
+        model.addAttribute("tags", AttractionTags.values());
 
         return "addAttraction";
     }

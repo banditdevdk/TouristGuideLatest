@@ -10,7 +10,7 @@
     <table>
         <thead>
         <tr th:if="${tags.isEmpty()}"> There are no tags for this attraction yet </tr>
-        <tr th:if="${!tags.isEmpty()}">
+        <tr th:unless="${tags.isEmpty()}">
             <th>Tag</th>
         </tr>
         </thead>
