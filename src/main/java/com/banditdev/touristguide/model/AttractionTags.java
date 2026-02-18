@@ -2,25 +2,16 @@ package com.banditdev.touristguide.model;
 
 public enum AttractionTags {
     GRATIS("Gratis"),
-    KUNST("Kunst"),
     NATUR("Natur"),
-    BØRNEVENLIG("Børnevenligt"),
-    MUSEUM("Museum"),
     HISTORISK("Historisk"),
-    KONGELIG("Kongelig"),
     ARKITEKTUR("Arkitektur"),
-    UDSIGT("Udsigt"),
     HAVN("Havn"),
     KULTUR("Kultur"),
-    GASTRONOMI("Gastronomi"),
-    NATTELIV("Natteliv"),
-    FAMILIEVENLIG("Familievenlig"),
     SEVÆRDIGHED("Seværdighed"),
     GUIDET_TUR("Guidet-tur"),
     FOTOVENLIG("Fotovenlig"),
     CENTRUM("Centrum"),
-    SHOPPING("Shopping"),
-    UNDERHOLDNING("Underholdning");
+    SHOPPING("Shopping");
 
     private final String description;
 

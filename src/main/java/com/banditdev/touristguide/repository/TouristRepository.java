@@ -35,44 +35,35 @@ public class TouristRepository {
 
         //Den Lille Havfrue
         t1.addTag(AttractionTags.GRATIS);
-        t1.addTag(AttractionTags.BØRNEVENLIG);
         t1.addTag(AttractionTags.SEVÆRDIGHED);
         t1.addTag(AttractionTags.FOTOVENLIG);
         t1.addTag(AttractionTags.HAVN);
 
         //Nyhavn
         t2.addTag(AttractionTags.HAVN);
-        t2.addTag(AttractionTags.GASTRONOMI);
-        t2.addTag(AttractionTags.NATTELIV);
         t2.addTag(AttractionTags.FOTOVENLIG);
         t2.addTag(AttractionTags.CENTRUM);
 
         //Rundetårn
         t3.addTag(AttractionTags.HISTORISK);
-        t3.addTag(AttractionTags.UDSIGT);
         t3.addTag(AttractionTags.ARKITEKTUR);
         t3.addTag(AttractionTags.SEVÆRDIGHED);
         t3.addTag(AttractionTags.GUIDET_TUR);
 
         //Amalienborg
-        t4.addTag(AttractionTags.KONGELIG);
         t4.addTag(AttractionTags.HISTORISK);
         t4.addTag(AttractionTags.ARKITEKTUR);
         t4.addTag(AttractionTags.SEVÆRDIGHED);
         t4.addTag(AttractionTags.CENTRUM);
 
         //Nationalmuseet
-        t5.addTag(AttractionTags.MUSEUM);
         t5.addTag(AttractionTags.KULTUR);
         t5.addTag(AttractionTags.HISTORISK);
-        t5.addTag(AttractionTags.FAMILIEVENLIG);
         t5.addTag(AttractionTags.GUIDET_TUR);
 
         //Christiania
         t6.addTag(AttractionTags.KULTUR);
-        t6.addTag(AttractionTags.KUNST);
         t6.addTag(AttractionTags.GRATIS);
-        t6.addTag(AttractionTags.UNDERHOLDNING);
         t6.addTag(AttractionTags.SEVÆRDIGHED);
     }
 
