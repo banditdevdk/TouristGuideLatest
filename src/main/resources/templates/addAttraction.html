@@ -30,7 +30,7 @@
     <br>
     <label>Attraction tag</label>
     <div th:id="tag" th:each="tag: ${tags}">
-        <input type="checkbox" th:value="${tag}">
+        <input type="checkbox" th:field="*{attractionTags}" th:value="${tag}">
         <label th:for="${tag}" th:text="${tag}"></label>
     </div>
 
