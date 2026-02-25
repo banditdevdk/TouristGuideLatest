@@ -1,5 +1,8 @@
 package com.banditdev.touristguide.controller;
 
+import com.banditdev.touristguide.model.AttractionTags;
+import com.banditdev.touristguide.model.Cities;
+import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.service.TouristService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -36,11 +41,32 @@ class TouristControllerTest {
     }
 
     @Test
-    void getTouristAttractionByName() {
+    void getTouristAttractionByName() throws Exception {
+
+        TouristAttraction touristAttraction = new TouristAttraction("Test","Test description", Cities.HERNING);
+
+        when(touristService.findTouristAttractionByName(touristAttraction.getName())).thenReturn(touristAttraction);
+
+        mockMvc.perform(get("/attractions/{name}", touristAttraction.getName()))
+                .andExpect(status().isOk());
+
+        verify(touristService).findTouristAttractionByName(touristAttraction.getName());
     }
 
     @Test
-    void viewTags() {
+    void viewTags() throws Exception {
+        TouristAttraction mockAttraction = new TouristAttraction();
+        mockAttraction.setName("Eiffel Tower");
+        mockAttraction.setAttractionTags(List.of(AttractionTags.HISTORISK, AttractionTags.SEVÆRDIGHED, AttractionTags.KULTUR));
+
+        when(touristService.findTouristAttractionByName("Eiffel Tower"))
+                .thenReturn(mockAttraction);
+        //tjekker GET til endpoint
+        mockMvc.perform(get("/attractions/{name}/tags", "Eiffel Tower"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("tags"))
+                .andExpect(model().attribute("attraction", mockAttraction))
+                .andExpect(model().attribute("tags", mockAttraction.getAttractionTags()));
     }
 
     @Test
