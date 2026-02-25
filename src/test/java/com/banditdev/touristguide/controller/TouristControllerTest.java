@@ -31,7 +31,8 @@ class TouristControllerTest {
     void getTouristAttractions() throws Exception {
         mockMvc.perform(get("/attractions"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("attractionList"));
+                .andExpect(view().name("attractionList"))
+                .andExpect(model().attributeExists("attractions"));
     }
 
     @Test
