@@ -82,22 +82,20 @@ class TouristControllerTest {
 
     @Test
     void saveNewTouristAttraction() throws Exception {
-//        TouristAttraction ta = new TouristAttraction();
-
         mockMvc.perform(post("/attractions/save")
-                .param("name", "Rundetårn")
-                .param("description", "description")
-                .param("city", String.valueOf(Cities.KØBENHAVN)))
-                .andExpect(status().isOk())
-                .andExpect(redirectedUrl("/attractions"));
+                    .param("name", "Rundetårn")
+                    .param("description", "En random description")
+                    .param("cityName", String.valueOf(Cities.KØBENHAVN)))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/attractions"));
 
         ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
         verify(touristService).addTouristAttraction(captor.capture());
 
         TouristAttraction captured = captor.getValue();
         assertEquals("Rundetårn", captured.getName());
-        assertEquals("description", captured.getDescription());
-        assertEquals(String.valueOf(Cities.KØBENHAVN), captured.getCityName());
+        assertEquals("En random description", captured.getDescription());
+        assertEquals(Cities.KØBENHAVN, captured.getCityName());
     }
 
     @Test
