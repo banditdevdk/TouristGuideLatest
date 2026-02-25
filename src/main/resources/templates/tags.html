@@ -8,13 +8,14 @@
 <body>
     <h1 th:text="${attraction.name} + ' Tags'"> </h1>
     <table>
-        <thead>
-        <tr th:if="${tags.isEmpty()}"> There are no tags for this attraction yet </tr>
-        <tr th:unless="${tags.isEmpty()}">
-            <th>Tag</th>
-        </tr>
-        </thead>
+        <thead> Tag </thead>
         <tbody>
+
+        <tr th:if="${tags.isEmpty()}">
+            <td> There are no tags for this attraction yet </td>
+        </tr>
+
+
         <tr th:each="tag : ${attraction.getAttractionTags()}">
             <td th:text="${tag.getDescription()}"></td>
         </tr>

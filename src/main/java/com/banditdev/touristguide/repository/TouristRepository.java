@@ -116,4 +116,17 @@ public class TouristRepository {
     }
 
 
+    public TouristAttraction updateTouristAttraction(TouristAttraction touristAttraction) {
+        for (int i = 0; i < touristAttractions.size(); i++) {
+            TouristAttraction ta = touristAttractions.get(i);
+
+            if (touristAttraction.getName().equalsIgnoreCase(ta.getName())) {
+                touristAttractions.set(i, touristAttraction);
+
+                return touristAttraction;
+            }
+        }
+        return null;
+    }
+
 }

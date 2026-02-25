@@ -40,4 +40,9 @@ public class TouristService {
         return repository.getTags();
     }
 
+    public TouristAttraction updateTouristAttraction(TouristAttraction touristAttraction) {
+        repository.updateTouristAttraction(touristAttraction);
+        return touristAttraction;
+    }
+
 }

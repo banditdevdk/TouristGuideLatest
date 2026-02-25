@@ -48,9 +48,6 @@ public class TouristController {
         return "tags";
     }
 
-
-    //vi skal finde ud af om hvad der skser med Tags. Der er noget der ikke virker!
-
     @GetMapping("/add")
     public String addNewTouristAttraction(Model model) {
         model.addAttribute("touristAttraction", new TouristAttraction());
@@ -69,20 +66,21 @@ public class TouristController {
         return "redirect:/attractions";
     }
 
-    //TODO @GetMapping("/{name}/edit")
-    
-    @PostMapping("/update")
-    public ResponseEntity<TouristAttraction> updateTouristAttraction(@RequestBody TouristAttraction touristAttraction) {
-    //logik skal muligvis ligge i repository? og skal return en string for at komme til en thymeleaf template
-        for (int i = 0; i < service.getTouristAttractions().size(); i++) {
-            TouristAttraction ta = service.getTouristAttractions().get(i);
+    @GetMapping("/{name}/edit")
+    public String editTouristAttraction(@PathVariable String name, Model model) {
+        TouristAttraction touristAttraction = service.findTouristAttractionByName(name);
+        model.addAttribute("touristAttraction", touristAttraction);
 
-            if (touristAttraction.getName().equalsIgnoreCase(ta.getName())) {
-                service.getTouristAttractions().set(i, touristAttraction);
-                return new ResponseEntity<>(touristAttraction, HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return "edit-template";
+    }
+
+    @PostMapping("/update")
+    public String updateTouristAttraction(@ModelAttribute TouristAttraction touristAttraction, Model model) {
+        model.addAttribute("touristAttraction", touristAttraction);
+
+        service.updateTouristAttraction(touristAttraction);
+
+        return "redirect:/attractions";
     }
 
     @PostMapping("/{name}/delete")
