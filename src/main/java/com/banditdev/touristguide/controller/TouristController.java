@@ -71,6 +71,10 @@ public class TouristController {
         TouristAttraction touristAttraction = service.findTouristAttractionByName(name);
         model.addAttribute("touristAttraction", touristAttraction);
 
+
+        model.addAttribute("cities", Cities.values());
+        model.addAttribute("tags", AttractionTags.values());
+
         return "edit-template";
     }
 
