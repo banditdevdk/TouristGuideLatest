@@ -14,9 +14,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TouristController.class)
 class TouristControllerTest {
@@ -44,7 +43,14 @@ class TouristControllerTest {
     }
 
     @Test
-    void addNewTouristAttraction() {
+    void addNewTouristAttraction() throws Exception {
+        mockMvc.perform(get("/attractions/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("addAttraction"))
+                .andExpect(model().attributeExists("touristAttraction"))
+                .andExpect(model().attributeExists("cities"))
+                .andExpect(model().attributeExists("tags"));
+
     }
 
     @Test
