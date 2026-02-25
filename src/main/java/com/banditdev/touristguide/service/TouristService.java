@@ -41,8 +41,7 @@ public class TouristService {
     }
 
     public TouristAttraction updateTouristAttraction(TouristAttraction touristAttraction) {
-        repository.updateTouristAttraction(touristAttraction);
-        return touristAttraction;
+        return repository.updateTouristAttraction(touristAttraction);
     }
 
 }

@@ -10,8 +10,8 @@
 <h1> Edit Attraction</h1>
 
 <form action="#" th:object="${touristAttraction}" th:action="@{/attractions/update}" th:method="post">
-    <label>Name</label>
-    <div th:text="*{name}"></div>
+    <h2 th:text="*{name}"></h2>
+    <input type="hidden" th:field="*{name}"/>
     <br>
 
     <label>Description</label>

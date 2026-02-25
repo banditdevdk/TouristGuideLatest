@@ -120,7 +120,7 @@ public class TouristRepository {
         for (int i = 0; i < touristAttractions.size(); i++) {
             TouristAttraction ta = touristAttractions.get(i);
 
-            if (touristAttraction.getName().equalsIgnoreCase(ta.getName())) {
+            if (touristAttraction.getName().equals(ta.getName())) {
                 touristAttractions.set(i, touristAttraction);
 
                 return touristAttraction;
