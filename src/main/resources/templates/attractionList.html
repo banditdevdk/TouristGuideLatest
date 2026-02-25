@@ -21,8 +21,8 @@
             <td th:text="${attraction.description}"></td>
             <td th:text="${attraction.getCityNameString()}"></td>
 
-            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/update'}">
-                <button>Update</button>
+            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/edit'}">
+                <button>Edit</button>
             </a></td>
 
             <td> <form th:action="@{'/attractions/' + ${attraction.name} + '/delete'}" method="post">
