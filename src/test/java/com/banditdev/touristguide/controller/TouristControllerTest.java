@@ -27,13 +27,6 @@ class TouristControllerTest {
     @MockitoBean
     private TouristService touristService;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void getTouristAttractions() throws Exception {
@@ -51,7 +44,15 @@ class TouristControllerTest {
     }
 
     @Test
-    void addTouristAttraction() {
+    void addNewTouristAttraction() {
+    }
+
+    @Test
+    void saveNewTouristAttraction() {
+    }
+
+    @Test
+    void editTouristAttraction() {
     }
 
     @Test
@@ -60,9 +61,5 @@ class TouristControllerTest {
 
     @Test
     void deleteAttraction() {
-    }
-
-    @Test
-    void seeAllTest() {
     }
 }
