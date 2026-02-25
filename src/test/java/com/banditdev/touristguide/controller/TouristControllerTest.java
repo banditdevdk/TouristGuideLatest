@@ -7,6 +7,7 @@ import com.banditdev.touristguide.service.TouristService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -15,8 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,7 +81,23 @@ class TouristControllerTest {
     }
 
     @Test
-    void saveNewTouristAttraction() {
+    void saveNewTouristAttraction() throws Exception {
+//        TouristAttraction ta = new TouristAttraction();
+
+        mockMvc.perform(post("/attractions/save")
+                .param("name", "Rundetårn")
+                .param("description", "description")
+                .param("city", String.valueOf(Cities.KØBENHAVN)))
+                .andExpect(status().isOk())
+                .andExpect(redirectedUrl("/attractions"));
+
+        ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
+        verify(touristService).addTouristAttraction(captor.capture());
+
+        TouristAttraction captured = captor.getValue();
+        assertEquals("Rundetårn", captured.getName());
+        assertEquals("description", captured.getDescription());
+        assertEquals(String.valueOf(Cities.KØBENHAVN), captured.getCityName());
     }
 
     @Test
