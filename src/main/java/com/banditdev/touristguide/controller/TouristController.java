@@ -59,8 +59,7 @@ public class TouristController {
     }
 
     @PostMapping("/save")
-    public String saveNewTouristAttraction(@ModelAttribute TouristAttraction touristAttraction, Model model) {
-        model.addAttribute("touristAttraction", touristAttraction);
+    public String saveNewTouristAttraction(@ModelAttribute TouristAttraction touristAttraction) {
 
         service.addTouristAttraction(touristAttraction);
         return "redirect:/attractions";
@@ -79,9 +78,7 @@ public class TouristController {
     }
 
     @PostMapping("/update")
-    public String updateTouristAttraction(@ModelAttribute TouristAttraction touristAttraction, Model model) {
-        model.addAttribute("touristAttraction", touristAttraction);
-
+    public String updateTouristAttraction(@ModelAttribute TouristAttraction touristAttraction) {
         service.updateTouristAttraction(touristAttraction);
 
         return "redirect:/attractions";
