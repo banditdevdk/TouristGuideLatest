@@ -1,16 +1,19 @@
 CREATE DATABASE IF NOT EXISTS tourist_db;
 USE tourist_db;
 
+DROP TABLE IF EXISTS cities;
 CREATE TABLE cities (
                         cities_id INT AUTO_INCREMENT PRIMARY KEY,
                         city_name VARCHAR(100) NOT NULL
 );
 
+DROP TABLE IF EXISTS tags;
 CREATE TABLE tags (
                       tag_id INT AUTO_INCREMENT PRIMARY KEY,
                       tag_description VARCHAR(500) NOT NULL
 );
 
+DROP TABLE IF EXISTS tourist_attraction;
 CREATE TABLE tourist_attraction (
                                     attraction_id INT AUTO_INCREMENT PRIMARY KEY,
                                     name VARCHAR(100) NOT NULL,
@@ -21,6 +24,7 @@ CREATE TABLE tourist_attraction (
                                         ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS attraction_tags;
 CREATE TABLE attraction_tags (
                                  attraction_id INT,
                                  tag_id INT,
