@@ -30,3 +30,23 @@ INSERT INTO tourist_attraction (name, description, cities_id) VALUES
                                                                   ('Amalienborg', 'De danske kongers vinterresidens og et centralt symbol på monarkiet.', 1),
                                                                   ('Nationalmuseet', 'Danmarks største kulturhistoriske museum med udstillinger fra hele verden.', 1),
                                                                   ('Christiania', 'Unikt fristadssamfund kendt for alternativ livsstil, kunst og kultur.', 1);
+
+
+INSERT INTO attraction_tags (attraction_id, tag_id) VALUES
+-- Den Lille Havfrue
+(1,1),(1,7),(1,9),(1,5),
+
+-- Nyhavn
+(2,5),(2,9),(2,10),
+
+-- Rundetårn
+(3,3),(3,4),(3,7),(3,8),
+
+-- Amalienborg
+(4,3),(4,4),(4,7),(4,10),
+
+-- Nationalmuseet
+(5,6),(5,3),(5,8),
+
+-- Christiania
+(6,6),(6,1),(6,7);
