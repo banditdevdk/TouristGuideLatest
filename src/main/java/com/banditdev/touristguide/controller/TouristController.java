@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("attractions")
@@ -23,7 +24,7 @@ public class TouristController {
 
     @GetMapping()
     public String getTouristAttractions(Model model) {
-        ArrayList<TouristAttraction> touristAttractions = service.getTouristAttractions();
+        List<TouristAttraction> touristAttractions = service.findAll();
         model.addAttribute("attractions", touristAttractions);
         return "attractionList";
     }
@@ -39,14 +40,7 @@ public class TouristController {
         }
     }
 
-    @GetMapping("{name}/tags")
-    public String viewTags(@PathVariable String name, Model model) {
-        TouristAttraction t = service.findTouristAttractionByName(name);
-        model.addAttribute("attraction", t);
-        model.addAttribute("tags", t.getAttractionTags());
 
-        return "tags";
-    }
 
     @GetMapping("/add")
     public String addNewTouristAttraction(Model model) {

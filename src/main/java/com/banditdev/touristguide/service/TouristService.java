@@ -44,4 +44,8 @@ public class TouristService {
         return repository.updateTouristAttraction(touristAttraction);
     }
 
+    public List<TouristAttraction> findAll() {
+        return repository.findAll();
+    }
+
 }

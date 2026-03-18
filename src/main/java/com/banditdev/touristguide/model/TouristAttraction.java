@@ -1,71 +1,75 @@
 package com.banditdev.touristguide.model;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TouristAttraction {
+    private int attractionId;
     private String name;
     private String description;
-    private Cities cityName;
-    private List<AttractionTags> attractionTags;
+    private String cityName;
+    private List<String> attractionTags;
 
 
     public TouristAttraction() {}
-    public TouristAttraction(String name, String description, Cities cityName) {
+
+    public TouristAttraction(int attractionId, String name, String description, String cityName, List<String> attractionTags) {
+        this.attractionId = attractionId;
         this.name = name;
         this.description = description;
         this.cityName = cityName;
-        this.attractionTags = new ArrayList<>();
-    }
-
-    public List<AttractionTags> getAttractionTags() {
-        return attractionTags;
-    }
-
-    public Cities getCityName() {
-        return cityName;
-    }
-
-    public String getCityNameString() {
-        return cityName.getCityDescription();
-    }
-
-    public void setCityName(Cities cityName) {
-        this.cityName = cityName;
-    }
-
-    public void setAttractionTags(List<AttractionTags> attractionTags) {
         this.attractionTags = attractionTags;
     }
 
-    public void addTag(AttractionTags tag) {
-        attractionTags.add(tag);
+
+    public int getAttractionId() {
+        return attractionId;
+    }
+
+    public void setAttractionId(int attractionId) {
+        this.attractionId = attractionId;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public List<String> getAttractionTags() {
+        return attractionTags;
+    }
+
+    public void setAttractionTags(List<String> attractionTags) {
+        this.attractionTags = attractionTags;
+    }
+
+
     @Override
     public String toString() {
         return "TouristAttraction{" +
-                "name='" + name + '\'' +
+                "attractionId=" + attractionId +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", cityName='" + cityName + '\'' +
                 ", attractionTags=" + attractionTags +
                 '}';
     }
+
 }

@@ -6,11 +6,14 @@ import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
 public class TouristRepository {
+
     private final ArrayList<TouristAttraction> touristAttractions = new ArrayList<>();
 
     public TouristRepository() {
@@ -66,6 +69,57 @@ public class TouristRepository {
         t6.addTag(AttractionTags.KULTUR);
         t6.addTag(AttractionTags.GRATIS);
         t6.addTag(AttractionTags.SEVÆRDIGHED);
+    }
+
+
+
+
+
+    public List<TouristAttraction> findAll() {
+        String sql = """
+        SELECT
+            ta.attraction_id,
+            ta.name,
+            ta.description,
+            c.city_name,
+            t.tag_description
+        FROM tourist_attraction ta
+        LEFT JOIN cities c 
+            ON ta.cities_id = c.cities_id
+        LEFT JOIN attraction_tags at 
+            ON ta.attraction_id = at.attraction_id
+        LEFT JOIN tags t 
+            ON at.tag_id = t.tag_id
+        """;
+
+        return jdbcTemplate.query(sql, rs -> {
+            Map<Integer, TouristAttraction> map = new HashMap<>();
+
+            while (rs.next()) {
+                int id = rs.getInt("attraction_id");
+
+                TouristAttraction attraction = map.get(id);
+
+                if (attraction == null) {
+                    attraction = new TouristAttraction(
+                            id,
+                            rs.getString("name"),
+                            rs.getString("description"),
+                            rs.getString("city_name"),
+                            new ArrayList<>()
+                    );
+                    map.put(id, attraction);
+                }
+
+                String tag = rs.getString("tag_description");
+                if (tag != null) {
+                    attraction.getAttractionTags()
+                            .add(tag); //".trim().toLowerCase()" tilføj for normalisering!
+                }
+            }
+
+            return new ArrayList<>(map.values());
+        });
     }
 
 
