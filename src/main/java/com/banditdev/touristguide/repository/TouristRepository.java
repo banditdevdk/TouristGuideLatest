@@ -1,7 +1,4 @@
 package com.banditdev.touristguide.repository;
-
-import com.banditdev.touristguide.model.AttractionTags;
-import com.banditdev.touristguide.model.Cities;
 import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -56,8 +53,7 @@ public class TouristRepository {
                             id,
                             rs.getString("name"),
                             rs.getString("description"),
-                            rs.getString("city_name"),
-                            new ArrayList<>()
+                            rs.getString("city_name")
                     );
                     map.put(id, attraction);
                 }
