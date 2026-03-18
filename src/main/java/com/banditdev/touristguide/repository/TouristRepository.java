@@ -1,7 +1,5 @@
 package com.banditdev.touristguide.repository;
 
-import com.banditdev.touristguide.model.AttractionTags;
-import com.banditdev.touristguide.model.Cities;
 import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,9 +18,28 @@ public class TouristRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
     public ArrayList<TouristAttraction> getTouristAttractions() {
-        return touristAttractions;
+        String sql = "SELECT ta.attraction_id, ta.name, ta.description, c.city_name " +
+                "FROM tourist_db.tourist_attraction ta " +
+                "JOIN tourist_db.cities c ON ta.cities_id = c.cities_id";
+        return new ArrayList<>(jdbcTemplate.query(sql, (rs, rowNum) -> {
+            TouristAttraction t = new TouristAttraction(
+                    rs.getInt("attraction_id"),
+                    rs.getString("name"),
+                    rs.getString("description"),
+                    rs.getString("city_name")
+            );
+            t.setAttractionTags(getTagsForAttraction(rs.getInt("attraction_id")));
+            return t;
+        }));
+    }
+
+    //hjælpe metode til getTouristAttractions()
+    private List<String> getTagsForAttraction(int attractionId) {
+        String sql = "SELECT t.tag_description FROM tourist_db.tags t " +
+                "JOIN tourist_db.attraction_tags at ON t.tag_id = at.tag_id " +
+                "WHERE at.attraction_id = ?";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("tag_description"), attractionId);
     }
 
 
@@ -56,12 +73,9 @@ public class TouristRepository {
 
 
     public List<String> getTags() {
-        List<String> results = new ArrayList<>();
-
-        for (AttractionTags tag : AttractionTags.values()) {
-            results.add(tag.getDescription());
-        }
-        return results;
+        String sql = "SELECT tag_description FROM tourist_db.tags";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                rs.getString("tag_description"));
     }
 
 

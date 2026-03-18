@@ -1,7 +1,5 @@
 package com.banditdev.touristguide.controller;
 
-import com.banditdev.touristguide.model.AttractionTags;
-import com.banditdev.touristguide.model.Cities;
 import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.service.TouristService;
 import org.springframework.http.HttpStatus;
@@ -53,7 +51,7 @@ public class TouristController {
         model.addAttribute("touristAttraction", new TouristAttraction());
 
         model.addAttribute("cities", service.getCities());
-        model.addAttribute("tags", AttractionTags.values());
+        model.addAttribute("tags", service.getTags());
 
         return "addAttraction";
     }
@@ -71,8 +69,8 @@ public class TouristController {
         model.addAttribute("touristAttraction", touristAttraction);
 
 
-        model.addAttribute("cities", Cities.values());
-        model.addAttribute("tags", AttractionTags.values());
+        model.addAttribute("cities", service.getCities());
+        model.addAttribute("tags", service.getTags());
 
         return "edit-template";
     }

@@ -1,6 +1,5 @@
 package com.banditdev.touristguide.service;
 
-import com.banditdev.touristguide.model.Cities;
 import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.repository.TouristRepository;
 import org.springframework.stereotype.Service;

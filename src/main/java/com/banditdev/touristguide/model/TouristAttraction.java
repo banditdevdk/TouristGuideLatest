@@ -5,41 +5,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TouristAttraction {
+    private int id;
     private String name;
     private String description;
-    private Cities cityName;
-    private List<AttractionTags> attractionTags;
+    private String cityName;
+    private List<String> attractionTags;
 
 
     public TouristAttraction() {}
-    public TouristAttraction(String name, String description, Cities cityName) {
+
+    public TouristAttraction(int id, String name, String description, String cityName) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.cityName = cityName;
         this.attractionTags = new ArrayList<>();
     }
 
-    public List<AttractionTags> getAttractionTags() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<String> getAttractionTags() {
         return attractionTags;
     }
 
-    public Cities getCityName() {
+    public String getCityName() {
         return cityName;
     }
 
-    public String getCityNameString() {
-        return cityName.getCityDescription();
-    }
-
-    public void setCityName(Cities cityName) {
+    public void setCityName(String cityName) {
         this.cityName = cityName;
     }
 
-    public void setAttractionTags(List<AttractionTags> attractionTags) {
+    public void setAttractionTags(List<String> attractionTags) {
         this.attractionTags = attractionTags;
     }
 
-    public void addTag(AttractionTags tag) {
+    public void addTag(String tag) {
         attractionTags.add(tag);
     }
 
