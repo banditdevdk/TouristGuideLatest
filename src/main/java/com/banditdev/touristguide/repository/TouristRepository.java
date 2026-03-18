@@ -110,12 +110,9 @@ public class TouristRepository {
 
 
     public List<String> getTags() {
-        List<String> results = new ArrayList<>();
-
-        for (AttractionTags tag : AttractionTags.values()) {
-            results.add(tag.getDescription());
-        }
-        return results;
+        String sql = "SELECT tag_description FROM tourist_db.tags";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                rs.getString("tag_description"));
     }
 
 
