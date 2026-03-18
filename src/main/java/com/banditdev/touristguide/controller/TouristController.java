@@ -52,7 +52,7 @@ public class TouristController {
     public String addNewTouristAttraction(Model model) {
         model.addAttribute("touristAttraction", new TouristAttraction());
 
-        model.addAttribute("cities", Cities.values());
+        model.addAttribute("cities", service.getCities());
         model.addAttribute("tags", AttractionTags.values());
 
         return "addAttraction";
