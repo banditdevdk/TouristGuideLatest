@@ -11,14 +11,14 @@
         <thead> Tag </thead>
         <tbody>
 
-        <tr th:if="${tags.isEmpty()}">
-            <td> There are no tags for this attraction yet </td>
+        <tr th:if="${attraction.attractionTags.isEmpty()}">
+            <td>There are no tags for this attraction yet</td>
         </tr>
 
-
-        <tr th:each="tag : ${attraction.getAttractionTags()}">
-            <td th:text="${tag.getDescription()}"></td>
+        <tr th:each="tag : ${attraction.attractionTags}">
+            <td th:text="${tag}"></td>
         </tr>
+
         </tbody>
     </table>
 

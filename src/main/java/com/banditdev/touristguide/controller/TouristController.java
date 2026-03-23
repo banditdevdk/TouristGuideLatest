@@ -39,6 +39,17 @@ public class TouristController {
         return "attractionSingle";
     }
 
+    @GetMapping("/{id}/tags")
+    public String showTagsForAttraction(@PathVariable int id, Model model) {
+        TouristAttraction t = service.findTouristAttractionById(id);
+        if (t == null) {
+            return "attractionList"; //vi kan lave error page eller andet her!
+        }
+
+        model.addAttribute("attraction", t);
+        return "tags";
+    }
+
 
 
     @GetMapping("/add")
