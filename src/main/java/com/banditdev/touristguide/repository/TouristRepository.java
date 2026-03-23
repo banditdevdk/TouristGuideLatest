@@ -219,22 +219,20 @@ public class TouristRepository {
     }
 
 
-    public boolean updateTouristAttraction(TouristAttraction touristAttraction) {
+    public void updateTouristAttraction(TouristAttraction touristAttraction) {
         String sql = """
-                UPDATE tourist_attractions
-                SET name = ?, description = ?, cities_id(SELECT cities_id FROM cities WHERE city_name = ?)
+                UPDATE tourist_attraction
+                SET name = ?, description = ?, cities_id = (SELECT cities_id FROM cities WHERE city_name = ?)
                 WHERE attraction_id = ?
                 """;
 
-        int rowsUpdated = jdbcTemplate.update(
+        jdbcTemplate.update(
                 sql,
                 touristAttraction.getName(),
-                touristAttraction.getCityName(),
                 touristAttraction.getDescription(),
+                touristAttraction.getCityName(),
                 touristAttraction.getId()
         );
-
-        return rowsUpdated > 0;
     }
 
 }

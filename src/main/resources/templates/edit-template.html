@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<h1> Edit Attraction</h1>
+<h1>Edit Attraction</h1>
 
 <form action="#" th:object="${touristAttraction}" th:action="@{/attractions/update}" th:method="post">
     <h2 th:text="*{name}"></h2>
@@ -35,7 +35,7 @@
         <label th:for="${tag}" th:text="${tag}"></label>
     </div>
 
-    <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
+    <input type="submit" value="Submit"/><input type="reset" value="Reset"/>
 
 
 </form>
