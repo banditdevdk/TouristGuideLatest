@@ -17,8 +17,6 @@ import java.util.Map;
 @Repository
 public class TouristRepository {
 
-    private final ArrayList<TouristAttraction> touristAttractions = new ArrayList<>();
-
     private final JdbcTemplate jdbcTemplate;
 
     public TouristRepository(JdbcTemplate jdbcTemplate) {
@@ -81,11 +79,6 @@ public class TouristRepository {
         });
     }
 
-
-
-    public ArrayList<TouristAttraction> getTouristAttractions() {
-        return touristAttractions;
-    }
 
 
     public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {

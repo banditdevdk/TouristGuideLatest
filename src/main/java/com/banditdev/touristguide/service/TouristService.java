@@ -15,10 +15,6 @@ public class TouristService {
         this.repository = repository;
     }
 
-    public ArrayList<TouristAttraction> getTouristAttractions(){
-        return repository.getTouristAttractions();
-    }
-
     public  TouristAttraction findTouristAttractionById(int input) {
         return repository.findTouristAttractionById(input);
     }
