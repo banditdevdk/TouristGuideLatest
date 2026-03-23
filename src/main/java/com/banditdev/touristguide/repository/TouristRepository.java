@@ -1,8 +1,12 @@
 package com.banditdev.touristguide.repository;
 import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,8 +81,39 @@ public class TouristRepository {
 
 
     public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {
-        touristAttractions.add(touristAttraction);
-        return touristAttraction;
+        String sql = """
+                INSERT INTO tourist_attraction (name, description, cities_id)
+                VALUES (?, ?, ?)
+                """;
+
+        KeyHolder kh = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, touristAttraction.getName());
+            ps.setString(2, touristAttraction.getDescription());
+            ps.setInt(3, getCityIdByName(touristAttraction.getCityName()));
+            return ps;
+        }, kh);
+
+
+        Number key = kh.getKey();
+        if (key == null) {
+            throw new IllegalStateException("Failed to get KeyHolder id.");
+        }
+
+        for (String t: touristAttraction.getAttractionTags()) {
+            int tag_id = getTagIdByDescription(t);
+
+            String sqlTags = """
+                    INSERT INTO attraction_tags (attraction_id, tag_id)
+                    VALUES (?, ?)
+                    """;
+
+            jdbcTemplate.update(sqlTags, key.intValue(), tag_id);
+        }
+
+        return new TouristAttraction(key.intValue(), touristAttraction.getName(), touristAttraction.getDescription(), touristAttraction.getCityName());
     }
 /* old method
     public void deleteTouristAttraction(String name) {
@@ -104,6 +139,28 @@ public class TouristRepository {
             }
         }
         return null;
+    }
+
+    public int getTagIdByDescription(String tagDescription) {
+        String sql = "SELECT tag_id FROM tags WHERE tag_description = ?";
+        Integer tagId = jdbcTemplate.queryForObject(sql, Integer.class, tagDescription);
+
+        if (tagId == null) {
+            throw new IllegalArgumentException("getTagIdByDescription method failed, couldn't find tagId");
+        }
+
+        return tagId;
+    }
+
+    public int getCityIdByName(String cityName) {
+        String sql = "SELECT cities_id FROM cities WHERE city_name = ?";
+        Integer cityId = jdbcTemplate.queryForObject(sql, Integer.class, cityName);
+
+        if (cityId == null) {
+            throw new IllegalArgumentException("getCityIdByName method failed, couldn't find cityId");
+        }
+
+        return cityId;
     }
 
     public List<String> getCities() {
