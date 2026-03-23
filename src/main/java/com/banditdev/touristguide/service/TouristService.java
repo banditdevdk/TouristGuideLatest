@@ -26,9 +26,15 @@ public class TouristService {
     public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {
         return repository.addTouristAttraction(touristAttraction);
     }
-
+/*old method
     public void deleteTouristAttraction(String name) {
         repository.deleteTouristAttraction(name);
+    }
+
+ */
+    //delete atractions by id
+    public void deleteTouristAttractionById(int id) {
+        repository.deleteTouristAttractionById(id);
     }
 
     public List<String> getCities() {

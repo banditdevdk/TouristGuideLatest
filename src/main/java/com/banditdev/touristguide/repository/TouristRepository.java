@@ -80,10 +80,20 @@ public class TouristRepository {
         touristAttractions.add(touristAttraction);
         return touristAttraction;
     }
-
+/* old method
     public void deleteTouristAttraction(String name) {
         touristAttractions.removeIf(t ->
                 t.getName().equalsIgnoreCase(name));
+    }
+ */
+    //method to delete an attraction:
+    public boolean deleteTouristAttractionById(int id) {
+        String sql = """
+              DELETE FROM tourist_attraction
+              WHERE attraction_id = ?
+              """;
+        int rowsDeleted = jdbcTemplate.update(sql, id);
+        return  rowsDeleted > 0;
     }
 
 
