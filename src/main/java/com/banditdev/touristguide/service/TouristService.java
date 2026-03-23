@@ -39,8 +39,8 @@ public class TouristService {
         return repository.getTags();
     }
 
-    public TouristAttraction updateTouristAttraction(TouristAttraction touristAttraction) {
-        return repository.updateTouristAttraction(touristAttraction);
+    public void updateTouristAttraction(TouristAttraction touristAttraction) {
+        repository.updateTouristAttraction(touristAttraction);
     }
 
     public List<TouristAttraction> findAll() {

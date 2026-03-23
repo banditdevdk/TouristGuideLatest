@@ -12,6 +12,7 @@
 <form action="#" th:object="${touristAttraction}" th:action="@{/attractions/update}" th:method="post">
     <h2 th:text="*{name}"></h2>
     <input type="hidden" th:field="*{name}"/>
+    <input type="hidden" th:field="*{id}"/>
     <br>
 
     <label>Description</label>

@@ -112,17 +112,22 @@ public class TouristRepository {
     }
 
 
-    public TouristAttraction updateTouristAttraction(TouristAttraction touristAttraction) {
-        for (int i = 0; i < touristAttractions.size(); i++) {
-            TouristAttraction ta = touristAttractions.get(i);
+    public boolean updateTouristAttraction(TouristAttraction touristAttraction) {
+        String sql = """
+                UPDATE tourist_attractions
+                SET name = ?, description = ?, cities_id(SELECT cities_id FROM cities WHERE city_name = ?)
+                WHERE attraction_id = ?
+                """;
 
-            if (touristAttraction.getName().equals(ta.getName())) {
-                touristAttractions.set(i, touristAttraction);
+        int rowsUpdated = jdbcTemplate.update(
+                sql,
+                touristAttraction.getName(),
+                touristAttraction.getCityName(),
+                touristAttraction.getDescription(),
+                touristAttraction.getId()
+        );
 
-                return touristAttraction;
-            }
-        }
-        return null;
+        return rowsUpdated > 0;
     }
 
 }
