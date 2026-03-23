@@ -3,6 +3,7 @@ import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -23,6 +24,13 @@ public class TouristRepository {
     public TouristRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    private final RowMapper<TouristAttraction> touristAttractionRowMapper = (rs, rowNum) ->
+            new TouristAttraction(rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("description"),
+                    rs.getString("city_name")
+            );
 
 
 
@@ -132,13 +140,45 @@ public class TouristRepository {
     }
 
 
-    public TouristAttraction findTouristAttractionByName(String nameToFind) {
-        for (TouristAttraction t : touristAttractions) {
-            if (nameToFind.equalsIgnoreCase(t.getName())) {
-                return t;
+    public TouristAttraction findTouristAttractionById(int idToFind) {
+        String sql = """
+        SELECT
+            ta.attraction_id,
+            ta.name,
+            ta.description,
+            c.city_name,
+            t.tag_description
+        FROM tourist_attraction ta
+        LEFT JOIN cities c 
+            ON ta.cities_id = c.cities_id
+        LEFT JOIN attraction_tags at 
+            ON ta.attraction_id = at.attraction_id
+        LEFT JOIN tags t 
+            ON at.tag_id = t.tag_id
+        WHERE ta.attraction_id = ?
+        """;
+
+        return jdbcTemplate.query(sql, rs -> {
+            TouristAttraction attraction = null;
+
+            while (rs.next()) {
+                if (attraction == null) {
+                    attraction = new TouristAttraction(
+                            rs.getInt("attraction_id"),
+                            rs.getString("name"),
+                            rs.getString("description"),
+                            rs.getString("city_name")
+                    );
+                }
+
+                String tag = rs.getString("tag_description");
+                if (tag != null) {
+                    attraction.addTag(tag);
+                }
             }
-        }
-        return null;
+
+            return attraction;
+        }, idToFind);
     }
 
     public int getTagIdByDescription(String tagDescription) {

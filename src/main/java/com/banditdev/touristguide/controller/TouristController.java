@@ -27,15 +27,16 @@ public class TouristController {
         return "attractionList";
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<TouristAttraction> getTouristAttractionByName(@PathVariable String name) {
-        TouristAttraction t = service.findTouristAttractionByName(name);
+    @GetMapping("{id}")
+    public String getTouristAttractionById(@PathVariable int id, Model model) {
+        TouristAttraction t = service.findTouristAttractionById(id);
 
-        if (t != null) {
-            return new ResponseEntity<>(t, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (t == null) {
+            return "attractionList"; //vi kan lave error page eller andet her!
         }
+
+        model.addAttribute("attraction", t);
+        return "attractionSingle";
     }
 
 
@@ -57,17 +58,17 @@ public class TouristController {
         return "redirect:/attractions";
     }
 
-    @GetMapping("/{name}/edit")
-    public String editTouristAttraction(@PathVariable String name, Model model) {
-        TouristAttraction touristAttraction = service.findTouristAttractionByName(name);
-        model.addAttribute("touristAttraction", touristAttraction);
-
-
-        model.addAttribute("cities", service.getCities());
-        model.addAttribute("tags", service.getTags());
-
-        return "edit-template";
-    }
+//    @GetMapping("/{name}/edit")
+//    public String editTouristAttraction(@PathVariable String name, Model model) {
+//        TouristAttraction touristAttraction = service.findTouristAttractionByName(name);
+//        model.addAttribute("touristAttraction", touristAttraction);
+//
+//
+//        model.addAttribute("cities", service.getCities());
+//        model.addAttribute("tags", service.getTags());
+//
+//        return "edit-template";
+//    }
 
     @PostMapping("/update")
     public String updateTouristAttraction(@ModelAttribute TouristAttraction touristAttraction) {

@@ -9,7 +9,7 @@ public class TouristAttraction {
     private String name;
     private String description;
     private String cityName;
-    private List<String> attractionTags;
+    private     List<String> attractionTags;
 
 
     public TouristAttraction() {}
