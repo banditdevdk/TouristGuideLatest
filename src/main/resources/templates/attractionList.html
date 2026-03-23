@@ -21,16 +21,16 @@
             <td th:text="${attraction.description}"></td>
             <td th:text="${attraction.cityName}"></td>
 
-            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/edit'}">
+            <td> <a th:href="@{'/attractions/' + ${attraction.id} + '/edit'}">
                 <button>Edit</button>
             </a></td>
 
-            <td> <form th:action="@{'/attractions/' + ${attraction.name} + '/delete'}" method="post">
+            <td> <form th:action="@{'/attractions/' + ${attraction.id} + '/delete'}" method="post">
                     <button type="submit">Delete</button>
                 </form>
             </td>
 
-            <td> <a th:href="@{'/attractions/' + ${attraction.name} + '/tags'}">
+            <td> <a th:href="@{'/attractions/' + ${attraction.id} + '/tags'}">
             <button>Tags</button>
             </a></td>
     </tr>
