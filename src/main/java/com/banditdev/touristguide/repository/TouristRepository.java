@@ -226,6 +226,15 @@ public class TouristRepository {
                 touristAttraction.getCityName(),
                 touristAttraction.getId()
         );
+
+        String deleteTags = "DELETE FROM attraction_tags WHERE attraction_id = ?";
+        jdbcTemplate.update(deleteTags, touristAttraction.getId());
+
+        String insertTag = "INSERT INTO attraction_tags (attraction_id, tag_id) VALUES (?, ?)";
+        for (String tag : touristAttraction.getAttractionTags()) {
+            int tagId = getTagIdByDescription(tag);
+            jdbcTemplate.update(insertTag, touristAttraction.getId(), tagId);
+        }
     }
 
 }
