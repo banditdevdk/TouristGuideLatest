@@ -38,7 +38,7 @@ public class TouristRepository {
                     c.city_name,
                     t.tag_description
                 FROM tourist_attraction ta
-                LEFT JOIN cities c 
+                LEFT JOIN cities c
                     ON ta.cities_id = c.cities_id
                 LEFT JOIN attraction_tags at 
                     ON ta.attraction_id = at.attraction_id

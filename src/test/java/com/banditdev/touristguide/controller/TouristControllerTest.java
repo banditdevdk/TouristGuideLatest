@@ -3,8 +3,6 @@ package com.banditdev.touristguide.controller;
 import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.repository.TouristRepository;
 import com.banditdev.touristguide.service.TouristService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +10,16 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.List;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 
 @WebMvcTest(TouristController.class)
 @ActiveProfiles("test")
@@ -37,25 +34,20 @@ class TouristControllerTest {
     @MockitoBean
     private TouristRepository touristRepository;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
-
     @Test
     void getTouristAttractions() throws Exception {
         mockMvc.perform(get("/attractions"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("attractionList"));
+                .andExpect(view().name("attractionList"))
+                .andExpect(model().attributeExists("attractions"));
     }
 
-
     @Test
-    void addNewTouristAttraction() {
+    void addNewTouristAttraction() throws Exception {
+        mockMvc.perform(get("/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("addAttraction"))
+                .andExpect(model().attributeExists("touristAttraction"));
     }
 
     @Test
@@ -97,10 +89,23 @@ class TouristControllerTest {
     }
 
     @Test
-    void editTouristAttraction() {
+    void editTouristAttraction() throws Exception {
+        TouristAttraction mockAttraction = new TouristAttraction();
+        mockAttraction.setId(7);
+
+        when(touristService.findTouristAttractionById(7)).thenReturn(mockAttraction);
+
+        mockMvc.perform(get("/attractions/{id}/edit", 7))
+                .andExpect(status().isOk())
+                .andExpect(view().name("edit-template"))
+                .andExpect(model().attributeExists("touristAttraction"))
+                .andExpect(model().attribute("touristAttraction", mockAttraction));
     }
 
     @Test
-    void delete() {
+    void delete() throws Exception {
+        mockMvc.perform(post("/attractions/{id}/delete", 1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/attractions"));
     }
 }
