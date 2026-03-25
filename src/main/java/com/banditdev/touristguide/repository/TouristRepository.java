@@ -2,7 +2,6 @@ package com.banditdev.touristguide.repository;
 
 import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -18,12 +17,6 @@ import java.util.Map;
 public class TouristRepository {
 
     private final JdbcTemplate jdbcTemplate;
-    private final RowMapper<TouristAttraction> touristAttractionRowMapper = (rs, rowNum) ->
-            new TouristAttraction(rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("description"),
-                    rs.getString("city_name")
-            );
 
     public TouristRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -40,9 +33,9 @@ public class TouristRepository {
                 FROM tourist_attraction ta
                 LEFT JOIN cities c
                     ON ta.cities_id = c.cities_id
-                LEFT JOIN attraction_tags at 
+                LEFT JOIN attraction_tags at
                     ON ta.attraction_id = at.attraction_id
-                LEFT JOIN tags t 
+                LEFT JOIN tags t
                     ON at.tag_id = t.tag_id
                 """;
 
@@ -110,13 +103,12 @@ public class TouristRepository {
         return new TouristAttraction(key.intValue(), touristAttraction.getName(), touristAttraction.getDescription(), touristAttraction.getCityName());
     }
 
-    public boolean deleteTouristAttractionById(int id) {
+    public void deleteTouristAttractionById(int id) {
         String sql = """
                 DELETE FROM tourist_attraction
                 WHERE attraction_id = ?
                 """;
-        int rowsDeleted = jdbcTemplate.update(sql, id);
-        return rowsDeleted > 0;
+        jdbcTemplate.update(sql, id);
     }
 
     public TouristAttraction findTouristAttractionById(int idToFind) {
@@ -128,11 +120,11 @@ public class TouristRepository {
                     c.city_name,
                     t.tag_description
                 FROM tourist_attraction ta
-                LEFT JOIN cities c 
+                LEFT JOIN cities c
                     ON ta.cities_id = c.cities_id
-                LEFT JOIN attraction_tags at 
+                LEFT JOIN attraction_tags at
                     ON ta.attraction_id = at.attraction_id
-                LEFT JOIN tags t 
+                LEFT JOIN tags t
                     ON at.tag_id = t.tag_id
                 WHERE ta.attraction_id = ?
                 """;
