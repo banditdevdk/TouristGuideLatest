@@ -1,9 +1,10 @@
 package com.banditdev.touristguide.repository;
+
 import com.banditdev.touristguide.model.TouristAttraction;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -13,16 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Repository
 public class TouristRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public TouristRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
     private final RowMapper<TouristAttraction> touristAttractionRowMapper = (rs, rowNum) ->
             new TouristAttraction(rs.getInt("id"),
                     rs.getString("name"),
@@ -30,25 +25,26 @@ public class TouristRepository {
                     rs.getString("city_name")
             );
 
-
-
+    public TouristRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<TouristAttraction> findAll() {
         String sql = """
-        SELECT
-            ta.attraction_id,
-            ta.name,
-            ta.description,
-            c.city_name,
-            t.tag_description
-        FROM tourist_attraction ta
-        LEFT JOIN cities c 
-            ON ta.cities_id = c.cities_id
-        LEFT JOIN attraction_tags at 
-            ON ta.attraction_id = at.attraction_id
-        LEFT JOIN tags t 
-            ON at.tag_id = t.tag_id
-        """;
+                SELECT
+                    ta.attraction_id,
+                    ta.name,
+                    ta.description,
+                    c.city_name,
+                    t.tag_description
+                FROM tourist_attraction ta
+                LEFT JOIN cities c 
+                    ON ta.cities_id = c.cities_id
+                LEFT JOIN attraction_tags at 
+                    ON ta.attraction_id = at.attraction_id
+                LEFT JOIN tags t 
+                    ON at.tag_id = t.tag_id
+                """;
 
         return jdbcTemplate.query(sql, rs -> {
             Map<Integer, TouristAttraction> map = new HashMap<>();
@@ -79,8 +75,6 @@ public class TouristRepository {
         });
     }
 
-
-
     public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {
         String sql = """
                 INSERT INTO tourist_attraction (name, description, cities_id)
@@ -97,13 +91,12 @@ public class TouristRepository {
             return ps;
         }, kh);
 
-
         Number key = kh.getKey();
         if (key == null) {
             throw new IllegalStateException("Failed to get KeyHolder id.");
         }
 
-        for (String t: touristAttraction.getAttractionTags()) {
+        for (String t : touristAttraction.getAttractionTags()) {
             int tag_id = getTagIdByDescription(t);
 
             String sqlTags = """
@@ -116,40 +109,33 @@ public class TouristRepository {
 
         return new TouristAttraction(key.intValue(), touristAttraction.getName(), touristAttraction.getDescription(), touristAttraction.getCityName());
     }
-/* old method
-    public void deleteTouristAttraction(String name) {
-        touristAttractions.removeIf(t ->
-                t.getName().equalsIgnoreCase(name));
-    }
- */
-    //method to delete an attraction:
+
     public boolean deleteTouristAttractionById(int id) {
         String sql = """
-              DELETE FROM tourist_attraction
-              WHERE attraction_id = ?
-              """;
+                DELETE FROM tourist_attraction
+                WHERE attraction_id = ?
+                """;
         int rowsDeleted = jdbcTemplate.update(sql, id);
-        return  rowsDeleted > 0;
+        return rowsDeleted > 0;
     }
-
 
     public TouristAttraction findTouristAttractionById(int idToFind) {
         String sql = """
-        SELECT
-            ta.attraction_id,
-            ta.name,
-            ta.description,
-            c.city_name,
-            t.tag_description
-        FROM tourist_attraction ta
-        LEFT JOIN cities c 
-            ON ta.cities_id = c.cities_id
-        LEFT JOIN attraction_tags at 
-            ON ta.attraction_id = at.attraction_id
-        LEFT JOIN tags t 
-            ON at.tag_id = t.tag_id
-        WHERE ta.attraction_id = ?
-        """;
+                SELECT
+                    ta.attraction_id,
+                    ta.name,
+                    ta.description,
+                    c.city_name,
+                    t.tag_description
+                FROM tourist_attraction ta
+                LEFT JOIN cities c 
+                    ON ta.cities_id = c.cities_id
+                LEFT JOIN attraction_tags at 
+                    ON ta.attraction_id = at.attraction_id
+                LEFT JOIN tags t 
+                    ON at.tag_id = t.tag_id
+                WHERE ta.attraction_id = ?
+                """;
 
         return jdbcTemplate.query(sql, rs -> {
             TouristAttraction attraction = null;
@@ -204,13 +190,11 @@ public class TouristRepository {
         );
     }
 
-
     public List<String> getTags() {
         String sql = "SELECT tag_description FROM tourist_db.tags";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 rs.getString("tag_description"));
     }
-
 
     public void updateTouristAttraction(TouristAttraction touristAttraction) {
         String sql = """
@@ -236,5 +220,4 @@ public class TouristRepository {
             jdbcTemplate.update(insertTag, touristAttraction.getId(), tagId);
         }
     }
-
 }

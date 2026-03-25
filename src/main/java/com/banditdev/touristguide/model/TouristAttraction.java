@@ -1,6 +1,5 @@
 package com.banditdev.touristguide.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +8,10 @@ public class TouristAttraction {
     private String name;
     private String description;
     private String cityName;
-    private     List<String> attractionTags;
+    private List<String> attractionTags;
 
-
-    public TouristAttraction() {}
+    public TouristAttraction() {
+    }
 
     public TouristAttraction(int id, String name, String description, String cityName) {
         this.id = id;
@@ -34,16 +33,16 @@ public class TouristAttraction {
         return attractionTags;
     }
 
+    public void setAttractionTags(List<String> attractionTags) {
+        this.attractionTags = attractionTags;
+    }
+
     public String getCityName() {
         return cityName;
     }
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
-    }
-
-    public void setAttractionTags(List<String> attractionTags) {
-        this.attractionTags = attractionTags;
     }
 
     public void addTag(String tag) {
@@ -54,12 +53,12 @@ public class TouristAttraction {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {

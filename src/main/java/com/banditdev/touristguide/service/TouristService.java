@@ -3,9 +3,8 @@ package com.banditdev.touristguide.service;
 import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.repository.TouristRepository;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
 
 @Service
 public class TouristService {
@@ -15,20 +14,14 @@ public class TouristService {
         this.repository = repository;
     }
 
-    public  TouristAttraction findTouristAttractionById(int input) {
+    public TouristAttraction findTouristAttractionById(int input) {
         return repository.findTouristAttractionById(input);
     }
 
     public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {
         return repository.addTouristAttraction(touristAttraction);
     }
-/*old method
-    public void deleteTouristAttraction(String name) {
-        repository.deleteTouristAttraction(name);
-    }
 
- */
-    //delete atractions by id
     public void deleteTouristAttractionById(int id) {
         repository.deleteTouristAttractionById(id);
     }

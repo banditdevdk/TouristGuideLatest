@@ -2,13 +2,10 @@ package com.banditdev.touristguide.controller;
 
 import com.banditdev.touristguide.model.TouristAttraction;
 import com.banditdev.touristguide.service.TouristService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -50,8 +47,6 @@ public class TouristController {
         return "tags";
     }
 
-
-
     @GetMapping("/add")
     public String addNewTouristAttraction(Model model) {
         model.addAttribute("touristAttraction", new TouristAttraction());
@@ -85,15 +80,7 @@ public class TouristController {
 
         return "redirect:/attractions";
     }
-/*old method
-    @PostMapping("/{name}/delete")
-    public String deleteAttraction(@PathVariable String name) {
-        service.deleteTouristAttraction(name);
 
-        return "redirect:/attractions";
-    }
- */
-    //delete attraction by id
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable int id) {
         service.deleteTouristAttractionById(id);
