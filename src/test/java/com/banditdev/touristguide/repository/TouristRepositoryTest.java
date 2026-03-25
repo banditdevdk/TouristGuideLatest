@@ -29,4 +29,22 @@ class TouristRepositoryTest {
         assertThat(test.getFirst().getName()).isEqualTo("Den Lille Havfrue");
         assertThat(test.getFirst().getId()).isEqualTo(1);
     }
+
+    @Test
+    void insertNewAttractionAndTest() {
+        repository.addTouristAttraction(new TouristAttraction(7, "testName", "Test Description", "Vejle"));
+
+        TouristAttraction testAttraction = repository.findTouristAttractionById(7);
+        assertThat(testAttraction).isNotNull();
+        assertThat(testAttraction.getName()).isEqualTo("testName");
+    }
+
+    @Test
+    void deleteAttractionAndTest() {
+        assertThat(repository.findAll().size()).isEqualTo(6);
+        repository.deleteTouristAttractionById(1);
+
+        assertThat(repository.findAll().size()).isEqualTo(5);
+        assertThat(repository.findAll().getFirst().getId()).isEqualTo(2);
+    }
 }

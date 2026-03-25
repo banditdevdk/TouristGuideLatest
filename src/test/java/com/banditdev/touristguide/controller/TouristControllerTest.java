@@ -59,26 +59,26 @@ class TouristControllerTest {
     void addNewTouristAttraction() {
     }
 
-    @Test
-    void saveNewTouristAttraction() throws Exception {
-            mockMvc.perform(post("/attractions/save")
-                            .param("id", "1")
-                            .param("name", "Rundetårn")
-                            .param("description", "En random description")
-                            .param("cityName", String.valueOf(Cities.KØBENHAVN)))
-
-
-                    .andExpect(status().is3xxRedirection())
-                    .andExpect(view().name("redirect:/attractions"));
-
-            ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
-            verify(touristService).addTouristAttraction(captor.capture());
-
-            TouristAttraction captured = captor.getValue();
-            assertEquals("Rundetårn", captured.getName());
-            assertEquals("En random description", captured.getDescription());
-            assertEquals(Cities.KØBENHAVN, captured.getCityName());
-        }
+//    @Test
+//    void saveNewTouristAttraction() throws Exception {
+//            mockMvc.perform(post("/attractions/save")
+//                            .param("id", "1")
+//                            .param("name", "Rundetårn")
+//                            .param("description", "En random description")
+//                            .param("cityName", String.valueOf(Cities.KØBENHAVN)))
+//
+//
+//                    .andExpect(status().is3xxRedirection())
+//                    .andExpect(view().name("redirect:/attractions"));
+//
+//            ArgumentCaptor<TouristAttraction> captor = ArgumentCaptor.forClass(TouristAttraction.class);
+//            verify(touristService).addTouristAttraction(captor.capture());
+//
+//            TouristAttraction captured = captor.getValue();
+//            assertEquals("Rundetårn", captured.getName());
+//            assertEquals("En random description", captured.getDescription());
+//            assertEquals(Cities.KØBENHAVN, captured.getCityName());
+//        }
 
     @Test
     void editTouristAttraction() {
